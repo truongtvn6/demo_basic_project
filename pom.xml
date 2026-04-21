@@ -19,6 +19,7 @@
     </parent>
 
     <modules>
+        <module>api-gateway</module>
         <module>device-registry-service</module>
         <module>integration-service</module>
         <module>notification-service</module>
@@ -30,10 +31,18 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <firebase-admin.version>9.4.1</firebase-admin.version>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>com.google.firebase</groupId>
                 <artifactId>firebase-admin</artifactId>

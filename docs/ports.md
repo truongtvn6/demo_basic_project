@@ -17,9 +17,12 @@ PostgreSQL default credentials: `demo` / `demo`, DB `projectdemo`.
 
 | Service                  | Port | Base URL                          |
 |--------------------------|------|-----------------------------------|
+| api-gateway              | 8080 | http://localhost:8080             |
 | device-registry-service  | 8081 | http://localhost:8081             |
 | integration-service      | 8082 | http://localhost:8082             |
 | notification-service     | 8083 | http://localhost:8083             |
+
+The frontend (Vite dev server) runs on `http://localhost:5173` and talks only to the gateway on `:8080`.
 
 ## Management UIs
 
