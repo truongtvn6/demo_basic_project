@@ -1,0 +1,55 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowedOrigins:
+              - ${DEMOBASIC_CORS_ORIGIN:http://localhost:5173}
+            allowedMethods: [GET, POST, PUT, DELETE, OPTIONS, PATCH]
+            allowedHeaders:
+              - Authorization
+              - Content-Type
+              - Accept
+              - Origin
+              - X-Requested-With
+            allowCredentials: false
+            maxAge: 3600
+      routes:
+        - id: registry
+          uri: http://${REGISTRY_HOST:localhost}:${REGISTRY_PORT:8081}
+          predicates:
+            - Path=/api/registry/**
+          filters:
+            - StripPrefix=2
+        - id: integration
+          uri: http://${INTEGRATION_HOST:localhost}:${INTEGRATION_PORT:8082}
+          predicates:
+            - Path=/api/integration/**
+          filters:
+            - StripPrefix=2
+        - id: notification
+          uri: http://${NOTIFICATION_HOST:localhost}:${NOTIFICATION_PORT:8083}
+          predicates:
+            - Path=/api/notification/**
+          filters:
+            - StripPrefix=2
+
+demobasic:
+  api-token: ${DEMOBASIC_API_TOKEN:dev-token}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    com.demobasic.gateway: DEBUG
